@@ -5,6 +5,18 @@ var Parse = {
 
   create: function (message, successCB, errorCB = null) {
     // todo: save a message to the server
+    $.ajax({
+      url: Parse.server,
+      type: 'POST',
+      data: JSON.stringify(message),
+      contentType: 'application/json',
+      success: successCB || function (data) {
+        console.log('chatterbox: Message Sent', data)
+      },
+      error: errorCB || function (error) {
+        console.error('chatterbox: Failed to create message', error);
+      }
+    });
   },
 
   readAll: function (successCB, errorCB = null) {
@@ -19,4 +31,5 @@ var Parse = {
       }
     });
   }
+
 };
